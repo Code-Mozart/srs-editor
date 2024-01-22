@@ -1,4 +1,5 @@
 <script>
+    
     export let item
     export let isSelected = false
     export let depth = 0
@@ -12,8 +13,8 @@
             >
                 <span
                     class="marker"
-                    style="margin-left: calc(1rem * {depth} + 0.5rem);"
-                />
+                    style="margin-left: calc(1rem * {depth});"
+                >▶</span>
                 <span
                     class="branch"
                     on:click|preventDefault
@@ -66,17 +67,16 @@
     }
 
     .marker {
-        margin: auto 0.5rem;
-        margin-right: 0;
+        padding: 0.5rem;
+        padding-right: 0;
         width: 1rem;
         font-size: small;
+
+        transition: transform 200ms;
     }
-    
-    details > summary > span.marker::before {
-        content: '▶';
-    }
-    details[open] > summary > span.marker::before {
-        content: '▼';
+
+    details[open] > summary > .marker {
+        transform: rotate(90deg);
     }
 
     details {
@@ -85,7 +85,7 @@
 
     summary {
         display: flex;
-        align-items: start;
+        align-items: center;
         list-style-type: none;
         cursor: pointer;
     }
