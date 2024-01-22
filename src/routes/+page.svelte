@@ -1,6 +1,15 @@
 <script>
-    import { t } from '$lib/translations'
+    import TreeView from '$lib/components/tree-view.svelte'
+
+    import items from '$lib/example-data.json'
 </script>
 
-<h1>{$t('common.greeting')}</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<main>
+    <TreeView items={items} />
+</main>
+
+<style>
+    main {
+        height: 100%;
+    }
+</style>

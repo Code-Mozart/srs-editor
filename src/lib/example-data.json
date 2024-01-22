@@ -1,0 +1,75 @@
+{
+  "customers": {
+    "name": "Customers",
+    "description": "Customers are users that buy products from the store.",
+    "children": {
+      "operations": {
+        "name": "Customer Operations",
+        "description": "Operations that can be performed on customers. These include creating, updating, and deleting customers.",
+        "children": {
+          "create": {
+            "name": "Create Customer",
+            "description": "Create a new customer.",
+            "children": {}
+          },
+          "update": {
+            "name": "Update Customer",
+            "description": "Update an existing customer.",
+            "children": {}
+          },
+          "delete": {
+            "name": "Delete Customer",
+            "description": "Delete an existing customer.",
+            "children": {}
+          }
+        }
+      },
+      "fields": {
+        "name": "Customer Fields",
+        "description": "Fields that can be used when querying customers.",
+        "children": {
+          "id": {
+            "name": "ID",
+            "description": "The ID of the customer.",
+            "children": {}
+          },
+          "email": {
+            "name": "Email",
+            "description": "The email address of the customer.",
+            "children": {}
+          },
+          "firstName": {
+            "name": "First Name",
+            "description": "The first name of the customer.",
+            "children": {}
+          },
+          "lastName": {
+            "name": "Last Name",
+            "description": "The last name of the customer.",
+            "children": {}
+          },
+          "phone": {
+            "name": "Phone",
+            "description": "The phone number of the customer.",
+            "children": {}
+          },
+          "createdAt": {
+            "name": "Created At",
+            "description": "The date and time when the customer was created.",
+            "children": {}
+          },
+          "updatedAt": {
+            "name": "Updated At",
+            "description": "The date and time when the customer was last updated.",
+            "children": {}
+          }
+        }
+      }
+    }
+  },
+  "invoices": {
+    "name": "Invoices",
+    "description": "Invoices are bills for products that have been purchased. Invoices are associated with a customer.",
+    "children": {}
+  }
+}

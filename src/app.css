@@ -1,4 +1,10 @@
 html,
 body {
   font-family: 'Roboto', sans-serif;
+  font-size: 13pt;
+
+  --margin: 0.5em;
+  margin: var(--margin);
+  padding: 0;
+  width: calc(100% - var(--margin) * 2);
 }
