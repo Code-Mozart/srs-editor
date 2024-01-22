@@ -15,7 +15,7 @@
                     style="margin-left: calc(1rem * {depth} + 0.5rem);"
                 />
                 <span
-                    class="leaf"
+                    class="branch"
                     on:click|preventDefault
                     on:keydown
                     role="treeitem"
@@ -37,7 +37,7 @@
             role="treeitem"
             tabindex="0"
             aria-selected={isSelected}
-            style="margin-left: calc(1rem * {depth});"
+            style="padding-left: calc(1rem * {depth} + 2rem);"
         >
             {item.name}
         </span>
@@ -47,19 +47,54 @@
 <style>
     li {
         margin: 0;
-        padding: 0;
-        display: flex;
         width: 100%;
+        display: flex;
     }
     .selected {
         background-color: #aaa;
     }
-    details, .leaf {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
+
+    span {
+        user-select: none;
+        display: inline-block;
     }
+
+    .branch, .leaf {
+        padding: 0.5rem;
+        width: calc(100% - 2rem);
+        cursor: default;
+    }
+
+    .marker {
+        margin: auto 0.5rem;
+        margin-right: 0;
+        width: 1rem;
+        font-size: small;
+    }
+    
+    details > summary > span.marker::before {
+        content: '▶';
+    }
+    details[open] > summary > span.marker::before {
+        content: '▼';
+    }
+
+    details {
+        width: 100%;
+    }
+
+    summary {
+        display: flex;
+        align-items: start;
+        list-style-type: none;
+        cursor: pointer;
+    }
+
+
+
+
+
+/* 
     .leaf {
         cursor: default;
         user-select: none;
@@ -99,5 +134,5 @@
     }
     summary > span.leaf {
         padding-left: 0rem;
-    }
+    } */
 </style>
