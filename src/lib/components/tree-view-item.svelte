@@ -1,5 +1,4 @@
 <script>
-    
     export let item
     export let isSelected = false
     export let depth = 0
@@ -7,7 +6,14 @@
 
 <li>
     {#if item.children && Object.entries(item.children).length > 0}
-        <details>
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+        <!-- Ignoring the warnings, as we only supress the propagation -->
+        <details
+            on:toggle
+            bind:open={item.isOpen}
+            on:click|stopPropagation
+        >
             <summary
                 class:selected={isSelected}
             >
@@ -17,7 +23,7 @@
                 >▶</span>
                 <span
                     class="branch"
-                    on:click|preventDefault
+                    on:click|preventDefault|stopPropagation
                     on:keydown
                     role="treeitem"
                     tabindex="0"
@@ -33,7 +39,7 @@
         <span
             class="leaf"
             class:selected={isSelected}
-            on:click
+            on:click|stopPropagation
             on:keydown
             role="treeitem"
             tabindex="0"
@@ -51,8 +57,14 @@
         width: 100%;
         display: flex;
     }
+    summary, .leaf {
+        background-color: white;
+        border: 1px solid white;
+        border-radius: 0.25rem;
+    }
     .selected {
-        background-color: #aaa;
+        background-color: #eee;
+        border-color: #aaa;
     }
 
     span {
@@ -89,50 +101,4 @@
         list-style-type: none;
         cursor: pointer;
     }
-
-
-
-
-
-/* 
-    .leaf {
-        cursor: default;
-        user-select: none;
-        padding: 0.5rem;
-        padding-left: 2rem;
-        width: 100%;
-        list-style-type: none;
-    }
-    details > * {
-        padding: 0.5rem;
-        width: 100%;
-    }
-    summary {
-        padding: 0;
-    }
-    summary > span {
-        display: inline-block;
-        width: 100%;
-    }
-    summary > span.marker {
-        display: inline-block;
-        padding: 0;
-        margin: auto 0.5rem;
-        width: 1rem;
-        font-size: smaller;
-        cursor: pointer;
-    }
-    details > summary > span.marker::before {
-        content: '▶';
-    }
-    details[open] > summary > span.marker::before {
-        content: '▼';
-    }
-    summary {
-        display: flex;
-        align-items: start;
-    }
-    summary > span.leaf {
-        padding-left: 0rem;
-    } */
 </style>
