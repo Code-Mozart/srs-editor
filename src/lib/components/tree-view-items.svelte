@@ -21,7 +21,7 @@
             class="entry"
         >
             <TreeViewItem
-                {item}
+                item={selectedItem === item ? selectedItem : item}
                 isSelected={selectedItem === item}
                 {depth}
                 on:click={dispatch('itemclick', {item})}

@@ -58,13 +58,13 @@
         display: flex;
     }
     summary, .leaf {
-        background-color: white;
-        border: 1px solid white;
+        background-color: var(--bg-color);
+        border: 1px solid var(--bg-color);
         border-radius: 0.25rem;
     }
     .selected {
-        background-color: #eee;
-        border-color: #aaa;
+        background-color: var(--bg-color-highlighted);
+        border-color: var(--border-color-highlighted);
     }
 
     span {

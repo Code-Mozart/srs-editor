@@ -1,9 +1,17 @@
 html,
 body {
+  --bg-color: white;
+  --color: black;
+  --bg-color-highlighted: #eee;
+  --border-color-highlighted: #aaa;
+  --bg-color-active: #aaa;
+  --border-color-active: black;
+  --color-weaker: #aaa;
+
   font-family: 'Roboto', sans-serif;
   font-size: 13pt;
 
-  --margin: 0.5em;
+  --margin: 0.5rem;
   margin: var(--margin);
   padding: 0;
   width: calc(100% - var(--margin) * 2);
@@ -11,6 +19,27 @@ body {
 
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 
   overflow: hidden;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    --bg-color: #222;
+    --color: #eee;
+    --bg-color-highlighted: #333;
+    --border-color-highlighted: #666;
+    --bg-color-active: #666;
+    --border-color-active: #aaa;
+    --color-weaker: #aaa;
+
+    background-color: var(--bg-color);
+    color: var(--color);
+  }
 }

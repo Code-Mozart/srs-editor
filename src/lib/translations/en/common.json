@@ -1,5 +1,11 @@
 {
   "tree-view": {
     "title": "Structure"
+  },
+  "editor": {
+    "title": "Editor",
+    "nothing-selected": "Nothing to show here. Select an item in the tree view to start editing.",
+    "item-name": "Name",
+    "item-content": "Description"
   }
 }

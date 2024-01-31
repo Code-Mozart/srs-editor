@@ -1,8 +1,12 @@
 <script>
     import TreeViewItems from '$lib/components/tree-view-items.svelte'
     import { t } from '$lib/translations'
+    import { createEventDispatcher } from 'svelte'
 
     export let items
+    export let selectedItem
+
+    const dispatch = createEventDispatcher()
 
     function loadItems(itemMap, parent = null) {
         let rootItems = []
@@ -31,14 +35,20 @@
     const {rootItems, allItems} = loadItems(items)
 
     let selectedItemIndex = null
-    $: selectedItem = selectedItemIndex !== null ? allItems[selectedItemIndex] : null
+
+    function selectItem(index) {
+        selectedItemIndex = index
+        selectedItem = selectedItemIndex !== null ? allItems[selectedItemIndex] : null
+        // Manually lookup item here, as selectedItem is not updated yet by Svelte
+        dispatch('itemselect', {item: selectedItem})
+    }
 
     /**
      * Rotates backwards through the list of items by 1.
      */
      function selectPreviousItem() {
         if (selectedItemIndex === null) {
-            selectedItemIndex = 0
+            selectItem(0)
             return
         }
         
@@ -46,9 +56,9 @@
         const indexInParent = parent?.children?.indexOf(selectedItem) ?? -1
         if (indexInParent > 0) {
             const previousInParent = parent.children[indexInParent - 1]
-            selectedItemIndex = allItems.indexOf(previousInParent)
+            selectItem(allItems.indexOf(previousInParent))
         } else if (parent !== null) {
-            selectedItemIndex = allItems.indexOf(parent)
+            selectItem(allItems.indexOf(parent))
         }
     }
 
@@ -57,7 +67,7 @@
      */
     function selectNextItem() {
         if (selectedItemIndex === null) {
-            selectedItemIndex = 0
+            selectItem(0)
             return
         }
 
@@ -69,7 +79,7 @@
         const indexInParent = parent.children.indexOf(selectedItem)
         if (indexInParent < parent.children.length - 1) {
             const nextInParent = parent.children[indexInParent + 1]
-            selectedItemIndex = allItems.indexOf(nextInParent)
+            selectItem(allItems.indexOf(nextInParent))
             return
         }
         
@@ -78,7 +88,7 @@
 
             if (parentIndexInGrandParent < grandParent.children.length - 1) {
                 const nextInGrandParent = grandParent.children[parentIndexInGrandParent + 1]
-                selectedItemIndex = allItems.indexOf(nextInGrandParent)
+                selectItem(allItems.indexOf(nextInGrandParent))
                 return
             }
         }
@@ -99,11 +109,11 @@
 
     function handleClick(event) {
         const { item } = event.detail
-        selectedItemIndex = allItems.indexOf(item)
+        selectItem(allItems.indexOf(item))
     }
 
     function handleClickInVoid(event) {
-        selectedItemIndex = null
+        selectItem(null)
     }
 
     function handleToggle(event) {
@@ -121,7 +131,7 @@
     function deselectOnParentCollapse(parent) {
         for (let ancestor = selectedItem.parent; ancestor !== null; ancestor = ancestor.parent) {
             if (ancestor === parent) {
-                selectedItemIndex = null
+                selectItem(null)
                 break
             }
         }
@@ -144,7 +154,6 @@
             on:itemtoggle={handleToggle}
         />
     </div>
-    <p class="status">Selected: <i>{selectedItem?.name || "None"}</i></p>
 </div>
 
 <style>
@@ -155,8 +164,5 @@
     }
     .tree-view-content {
         flex: 1;
-    }
-    .status {
-        flex: 0;
     }
 </style>
